@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="dist/css/adminlte.min.css?v=3.2.0"> --}}
   <script src="{{asset('js/vue.js')}}"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}">
   {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" /> --}}
 

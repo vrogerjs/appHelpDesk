@@ -9,5 +9,6 @@ class CategoriaResponsable extends Model
 {
     use HasFactory;
 
+    protected $table = "categorias_responsables";
     protected $fillable = ['categoria_id', 'responsable_id'];
 }

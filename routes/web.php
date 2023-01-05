@@ -40,3 +40,9 @@ Route::resource('incidencia', IncidenciaController::class);
 Route::get('/solucions', [SolucionController::class, 'index1'])->name('solucions');
 Route::get('/solucion/altabaja/{id}/{var}', [SolucionController::class, 'altabaja'])->name('altabaja');
 Route::resource('solucion', SolucionController::class);
+
+
+Route::get('/verResponsables/{id}', [CategoriaController::class, 'verResponsables'])->name('verResponsables');
+
+Route::put('/asignarresponsable/{categoria_id}', [CategoriaController::class, 'asignarResponsables'])->name('asignarResponsables');
+
