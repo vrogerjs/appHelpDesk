@@ -40,71 +40,60 @@ class IncidenciaController extends Controller
         $buscar = $request->busca;
         $idtipouser = Auth::user()->tipouser_id;
 
-        // if ($idtipouser == 1) {
-        //     $incidencias = DB::table('incidencias')
-        //         ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
-        //         ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
-        //         ->join('users', 'users.id', '=', 'incidencias.user_id')
-        //         ->where('incidencias.estado', '0')
-        //         ->where('incidencias.estado', '0')
-        //         ->where(function ($query) use ($buscar) {
-        //             $query->where('incidencias.motivo', 'like', '%' . $buscar . '%');
-        //             $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
-        //         })
-        //         ->orderBy('incidencias.id', 'desc')
-        //         ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres')
-        //         ->paginate(15);
-        // } elseif ($idtipouser == 2) {
-        //     $incidencias = DB::table('incidencias')
-        //         ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
-        //         ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
-        //         ->join('users', 'users.id', '=', 'incidencias.user_id')
-        //         ->where('incidencias.estado', '0')
-        //         ->where('incidencias.estado', '0')
-        //         ->where(function ($query) use ($buscar) {
-        //             $query->where('incidencias.motivo', 'like', '%' . $buscar . '%');
-        //             $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
-        //         })
-        //         ->orderBy('incidencias.id', 'desc')
-        //         ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres')
-        //         ->paginate(15);
-        // } else {
-        //     $nomuser = Auth::user()->nombres;
+        if ($idtipouser == 1) {
+            $incidencias = DB::table('incidencias')
+                ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
+                ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
+                ->join('users', 'users.id', '=', 'incidencias.user_id')
+                ->where('incidencias.estado', '0')
+                ->where('incidencias.estado', '0')
+                ->where(function ($query) use ($buscar) {
+                    $query->where('incidencias.motivo', 'like', '%' . $buscar . '%');
+                    $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
+                })
+                ->orderBy('incidencias.id', 'desc')
+                ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres')
+                ->paginate(15);
+        } elseif ($idtipouser == 2) {
 
-        //     $incidencias = DB::table('incidencias')
-        //         ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
-        //         ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
-        //         ->join('users', 'users.id', '=', 'incidencias.user_id')
-        //         ->where('incidencias.estado', '0')
-        //         ->where('incidencias.estado', '0')
-        //         ->where(function ($query) use ($buscar) {
-        //             $query->where('incidencias.motivo', 'like', '%' . $buscar . '%');
-        //             $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
-        //         })
-        //         ->orderBy('incidencias.id', 'desc')
-        //         ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres')
-        //         ->paginate(15);
-        // }
+            $nomuser = Auth::user()->nombres;
 
-        // SELECT * FROM INCIDENCIAS AS INC
-        // INNER JOIN CATEGORIAS AS CAT ON CAT.ID=INC.CATEGORIA_ID
-        // INNER JOIN CATEGORIAS_RESPONSABLES AS CAT_RESP ON CAT.ID=CAT_RESP.CATEGORIA_ID
-        // INNER JOIN RESPONSABLES AS RES ON RES.ID=CAT_RESP.RESPONSABLE_ID
-        // WHERE CONCAT(RES.NOMBRES, ' ', RES.APELLIDOS) = 'Julio Tarazona';
+            $incidencias = DB::table('incidencias')
+                ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
+                ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
+                ->join('users', 'users.id', '=', 'incidencias.user_id')
+                ->join('categorias_responsables', 'categorias.id', '=', 'categorias_responsables.categoria_id')
+                ->join('responsables', 'responsables.id', '=', 'categorias_responsables.responsable_id')
+                ->where('incidencias.estado', '0')
+                ->where('incidencias.estado', '0')
+                ->where(function ($query) use ($buscar) {
+                    $query->where('incidencias.motivo', 'like', '%' . $buscar . '%');
+                    $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
+                })
+                ->select(DB::raw("CONCAT('responsables.nombres','responsables.apellidos') AS nombape, 'incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres'"))
+                ->where('nombape', $nomuser)
+                ->paginate(15);
+        } else {
+            $incidencias = DB::table('incidencias')
+                ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
+                ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
+                ->join('users', 'users.id', '=', 'incidencias.user_id')
+                ->where('incidencias.estado', '0')
+                ->where('incidencias.estado', '0')
+                ->where(function ($query) use ($buscar) {
+                    $query->where('incidencias.motivo', 'like', '%' . $buscar . '%');
+                    $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
+                })
+                ->orderBy('incidencias.id', 'desc')
+                ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres')
+                ->paginate(15);
+        }
 
-        $incidencias = DB::table('incidencias')
-            ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
-            ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
-            ->join('users', 'users.id', '=', 'incidencias.user_id')
-            ->where('incidencias.estado', '0')
-            ->where('incidencias.estado', '0')
-            ->where(function ($query) use ($buscar) {
-                $query->where('incidencias.motivo', 'like', '%' . $buscar . '%');
-                $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
-            })
-            ->orderBy('incidencias.id', 'desc')
-            ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres')
-            ->paginate(15);
+        //  SELECT * FROM INCIDENCIAS AS INC
+        //  INNER JOIN CATEGORIAS AS CAT ON CAT.ID=INC.CATEGORIA_ID
+        //  INNER JOIN CATEGORIAS_RESPONSABLES AS CAT_RESP ON CAT.ID=CAT_RESP.CATEGORIA_ID
+        //  INNER JOIN RESPONSABLES AS RES ON RES.ID=CAT_RESP.RESPONSABLE_ID
+        //  WHERE CONCAT(RES.NOMBRES, ' ', RES.APELLIDOS) = 'Julio Tarazona';
 
         $categorias = Categoria::where('borrado', '0')->where('activo', '1')->orderBy('name')->get();
 
