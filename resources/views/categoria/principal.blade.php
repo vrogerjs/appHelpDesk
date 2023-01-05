@@ -234,4 +234,70 @@
     </div>
 </form>
 
+
+<form method="post" v-on:submit.prevent="asignarResponsable(fillCategoria.id)">
+
+    <div class="modal fade" id="modalAsignar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header bg-success bg-gradient">
+                    <h1 class="modal-title fs-5 fw-bold" id="exampleModalToggleLabel">Asignar Responsable</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-12 input-group">
+                            <label for="txtnameE" class="col-3 control-label">Categoría: <b style="color: red"> *</b></label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" id="txtnameE" name="txtnameE" placeholder="Ingrese la categoría." maxlength="512" autofocus v-model="fillCategoria.name" >
+                            </div>
+                        </div>
+
+                        <div class="col-12 input-group mt-3">
+                            <label for="txtdescripcionE" class="col-3 control-label">Descripción: <b style="color: red"> *</b></label>
+                            <div class="col-8">
+                                <textarea id="txtdescripcionE" name="txtdescripcionE" class="form-control" placeholder="Ingrese la descripción." maxlength="1024" v-model="fillCategoria.descripcion"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-12 input-group mt-3">
+                            <label for="cbuestado" class="col-3 control-label">Estado:<b style="color: red"> *</b></label>
+                            <div class="col-4">
+                                <select class="form-control" id="cbuestado" name="cbuestado" v-model="fillCategoria.activo">
+                                    <option value="1">Activado</option>
+                                    <option value="0">Desactivado</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="btnSaveE"><i class="fa-regular fa-floppy-disk"></i> Guardar</button>
+                    <button type="button" class="btn btn-secondary" id="btnCloseE" @click.prevent="cerrarFormE()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar</button>
+
+                    <div class="sk-circle" v-show="divloaderEdit">
+                        <div class="sk-circle1 sk-child"></div>
+                        <div class="sk-circle2 sk-child"></div>
+                        <div class="sk-circle3 sk-child"></div>
+                        <div class="sk-circle4 sk-child"></div>
+                        <div class="sk-circle5 sk-child"></div>
+                        <div class="sk-circle6 sk-child"></div>
+                        <div class="sk-circle7 sk-child"></div>
+                        <div class="sk-circle8 sk-child"></div>
+                        <div class="sk-circle9 sk-child"></div>
+                        <div class="sk-circle10 sk-child"></div>
+                        <div class="sk-circle11 sk-child"></div>
+                        <div class="sk-circle12 sk-child"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
 </div>
