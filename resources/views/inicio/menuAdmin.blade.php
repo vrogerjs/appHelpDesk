@@ -6,6 +6,7 @@
     <div class="card-body">
       <div class="row">
         
+        @if (accesoUser([1]))
         <div class="col-lg-3 col-6">          
           <div class="small-box bg-info" style="height: 143px;">
             <div class="inner">
@@ -18,7 +19,9 @@
             <a href="/categorias" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        
+        @endif
+
+        @if (accesoUser([1]))
         <div class="col-lg-3 col-6">          
           <div class="small-box bg-success" style="height: 143px;">
             <div class="inner">
@@ -31,7 +34,9 @@
             <a href="/responsables" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        
+        @endif
+
+        @if (accesoUser([1,2,3]))
         <div class="col-lg-3 col-6">          
           <div class="small-box bg-warning" style="height: 143px;">
             <div class="inner">
@@ -41,10 +46,12 @@
             <div class="icon pt-4">
               <i class="fas fa-person-add"></i>
             </div>
-            <a href="indicencias" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="incidencias" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
+        @endif
         
+        @if (accesoUser([1,2,3]))
         <div class="col-lg-3 col-6">          
           <div class="small-box bg-danger" style="height: 143px;">
             <div class="inner">
@@ -57,6 +64,7 @@
             <a href="solucions" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
+        @endif
         
       </div>
     </div>

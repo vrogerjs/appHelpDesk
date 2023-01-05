@@ -13,28 +13,33 @@ class ResponsableController extends Controller
 {
     public function index1()
     {
-        $idtipouser = Auth::user()->tipouser_id;
-        $tipouser = Tipouser::find($idtipouser);
+        if (accesoUser([1])) {
+            $idtipouser = Auth::user()->tipouser_id;
+            $tipouser = Tipouser::find($idtipouser);
 
-        $modulo = "responsable";
-        return view('responsable.index', compact('tipouser', 'modulo'));
+            $modulo = "responsable";
+            return view('responsable.index', compact('tipouser', 'modulo'));
+        } else {
+            $modulo = "inicioAdmin";
+            return view('inicio.home', compact('modulo'));
+        }
     }
     /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $buscar = $request->busca;
 
         $responsables = Responsable::where('borrado', '0')
-        ->where(function ($query) use ($buscar) {
-            $query->where('apellidos', 'like', '%' . $buscar . '%');
-            $query->orwhere('nombres', 'like', '%' . $buscar . '%');
-            $query->orwhere('cargo', 'like', '%' . $buscar . '%');
-        })
-        ->orderBy('id', 'desc')->paginate(10);
+            ->where(function ($query) use ($buscar) {
+                $query->where('apellidos', 'like', '%' . $buscar . '%');
+                $query->orwhere('nombres', 'like', '%' . $buscar . '%');
+                $query->orwhere('cargo', 'like', '%' . $buscar . '%');
+            })
+            ->orderBy('id', 'desc')->paginate(10);
 
         return [
             'pagination' => [
@@ -50,24 +55,24 @@ class ResponsableController extends Controller
     }
 
     /**
-    * Show the form for creating a new resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         //
     }
 
     /**
-    * Store a newly created resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        
+
         $apellidos = $request->apellidos;
         $nombres = $request->nombres;
         $cargo = $request->cargo;
@@ -76,7 +81,7 @@ class ResponsableController extends Controller
         $result = '1';
         $msj = '';
         $selector = '';
-    
+
         $input1  = array('apellidos' => $apellidos);
         $reglas1 = array('apellidos' => 'required|unique:responsables');
 
@@ -102,7 +107,7 @@ class ResponsableController extends Controller
             $result = '0';
             $msj = 'Debe ingresar el cargo del Responsable.';
             $selector = 'txtcargo';
-        }else {
+        } else {
 
             $newResponsable = new Responsable();
 
@@ -120,37 +125,37 @@ class ResponsableController extends Controller
     }
 
     /**
-    * Display the specified resource.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {
         //
     }
 
     /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
         //
     }
 
     /**
-    * Update the specified resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
-       
+
         $apellidos = $request->apellidos;
         $nombres = $request->nombres;
         $cargo = $request->cargo;
@@ -185,7 +190,7 @@ class ResponsableController extends Controller
             $result = '0';
             $msj = 'Debe ingresar el cargo del Responsable.';
             $selector = 'txtcargoE';
-        }else {
+        } else {
 
             $responsable = Responsable::findOrFail($id);
 
@@ -198,17 +203,17 @@ class ResponsableController extends Controller
 
             $msj = 'El responsable ha sido modificado con éxito.';
         }
-        
+
 
         return response()->json(["result" => $result, 'msj' => $msj, 'selector' => $selector]);
     }
 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
         $result = '1';

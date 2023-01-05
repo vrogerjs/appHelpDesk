@@ -18,11 +18,16 @@ class SolucionController extends Controller
 {
     public function index1()
     {
-        $idtipouser = Auth::user()->tipouser_id;
-        $tipouser = Tipouser::find($idtipouser);
+        if (accesoUser([1, 2, 3])) {
+            $idtipouser = Auth::user()->tipouser_id;
+            $tipouser = Tipouser::find($idtipouser);
 
-        $modulo = "solucion";
-        return view('solucion.index', compact('tipouser', 'modulo'));
+            $modulo = "solucion";
+            return view('solucion.index', compact('tipouser', 'modulo'));
+        } else {
+            $modulo = "inicioAdmin";
+            return view('inicio.home', compact('modulo'));
+        }
     }
     /**
      * Display a listing of the resource.
@@ -45,7 +50,7 @@ class SolucionController extends Controller
                 $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
             })
             ->orderBy('solucions.id', 'desc')
-            ->select('solucions.detalle as soldetalle', 'solucions.fecsolucion', 'incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres','us.nombres as usernombre')
+            ->select('solucions.detalle as soldetalle', 'solucions.fecsolucion', 'incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres', 'us.nombres as usernombre')
             ->paginate(15);
 
         return [

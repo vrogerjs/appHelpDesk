@@ -16,11 +16,16 @@ class CategoriaController extends Controller
 {
     public function index1()
     {
-        $idtipouser = Auth::user()->tipouser_id;
-        $tipouser = Tipouser::find($idtipouser);
+        if (accesoUser([1])) {
+            $idtipouser = Auth::user()->tipouser_id;
+            $tipouser = Tipouser::find($idtipouser);
 
-        $modulo = "categoria";
-        return view('categoria.index', compact('tipouser', 'modulo'));
+            $modulo = "categoria";
+            return view('categoria.index', compact('tipouser', 'modulo'));
+        } else {
+            $modulo = "inicioAdmin";
+            return view('inicio.home', compact('modulo'));
+        }
     }
     /**
      * Display a listing of the resource.
@@ -86,7 +91,7 @@ class CategoriaController extends Controller
 
         // $resp = DB::select("SELECT count(*) as cont FROM categorias_responsables where categoria_id=" . $categoria_id . " and responsable_id=" . $responsable_id . ";");
 
-        $resp = CategoriaResponsable::where('categoria_id',$categoria_id)->where('responsable_id',$responsable_id)->count();
+        $resp = CategoriaResponsable::where('categoria_id', $categoria_id)->where('responsable_id', $responsable_id)->count();
 
         // $dato->imagencomunicado = $imagencomunicado;
 
@@ -105,7 +110,7 @@ class CategoriaController extends Controller
             $result = '0';
             $msj = 'Debe seleccionar el nombre de un responsable.';
             $selector = 'txtnameE';
-        } elseif($resp > 0){
+        } elseif ($resp > 0) {
             $result = '0';
             $msj = 'Seleccione a otro responsable, el seleccionado ya esta asignado a dicha categoría.';
             $selector = 'txtnameE';
