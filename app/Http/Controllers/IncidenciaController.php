@@ -39,10 +39,10 @@ class IncidenciaController extends Controller
     {
         $buscar = $request->busca;
         $idtipouser = Auth::user()->tipouser_id;
+        $iduser = Auth::user()->id;
         $nomuser = Auth::user()->nombres;
 
         if ($idtipouser == 1) {
-
             $incidencias = DB::table('incidencias')
                 ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
                 ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
@@ -56,7 +56,6 @@ class IncidenciaController extends Controller
                 ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres')
                 ->paginate(15);
         } elseif ($idtipouser == 2) {
-
             $incidencias = DB::table('incidencias')
                 ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
                 ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
@@ -73,12 +72,12 @@ class IncidenciaController extends Controller
                 ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres')
                 ->paginate(15);
         } else {
-
             $incidencias = DB::table('incidencias')
                 ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
                 ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
                 ->join('users', 'users.id', '=', 'incidencias.user_id')
                 ->where('incidencias.estado', '0')
+                ->where('incidencias.user_id', $iduser)
                 ->where(function ($query) use ($buscar) {
                     $query->where('incidencias.motivo', 'like', '%' . $buscar . '%');
                     $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
@@ -87,12 +86,6 @@ class IncidenciaController extends Controller
                 ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres')
                 ->paginate(15);
         }
-
-        // SELECT * FROM INCIDENCIAS AS INC
-        // INNER JOIN CATEGORIAS AS CAT ON CAT.ID=INC.CATEGORIA_ID
-        // INNER JOIN CATEGORIAS_RESPONSABLES AS CAT_RESP ON CAT.ID=CAT_RESP.CATEGORIA_ID
-        // INNER JOIN RESPONSABLES AS RES ON RES.ID=CAT_RESP.RESPONSABLE_ID
-        // WHERE CONCAT(RES.NOMBRES, ' ', RES.APELLIDOS) = 'Julio Tarazona';
 
         $categorias = Categoria::where('borrado', '0')->where('activo', '1')->orderBy('name')->get();
 
@@ -108,7 +101,6 @@ class IncidenciaController extends Controller
                 'to' => $incidencias->lastItem(),
             ],
             'incidencias' => $incidencias,
-            'incidencias2' => $incidencias2,
             'categorias' => $categorias,
             'oficinas' => $oficinas,
             'nomuser' => $nomuser
