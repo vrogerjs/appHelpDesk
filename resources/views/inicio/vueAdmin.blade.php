@@ -28,7 +28,7 @@ createApp({
 			
 			
 			classTitle:'fa fa-home',
-			classMenu0:'active',
+			classMenu0:'',
 			classMenu1:'',
 			classMenu2:'',
 			classMenu3:'',
@@ -62,7 +62,7 @@ createApp({
 	methods: {
 		
 		onClick:function(){
-			$("#modalAlerta").modal('show');
+			// $("#modalAlerta").modal('show');
 		}
 		
 	}

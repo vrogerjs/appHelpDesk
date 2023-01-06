@@ -26,17 +26,11 @@
             <div class="card-body">
 
                 <div class="row">
-                    <div class="col-12 input-group">
-                        <label for="txtapellido" class="col-3 control-label">Apellidos: <b style="color: red"> *</b></label>
-                        <div class="col-8">
-                            <input type="text" class="form-control" id="txtapellido" name="txtapellido" placeholder="Ingrese sus apellidos." maxlength="512" autofocus v-model="newApellido" >
-                        </div>
-                    </div>
 
                     <div class="col-12 input-group  mt-3">
-                        <label for="txtnombre" class="col-3 control-label">Nombres: <b style="color: red"> *</b></label>
+                        <label for="txtnombre" class="col-3 control-label">Nombres y Apellidos: <b style="color: red"> *</b></label>
                         <div class="col-8">
-                            <input type="text" class="form-control" id="txtnombre" name="txtnombre" placeholder="Ingrese sus nombres." maxlength="512" autofocus v-model="newNombre" >
+                            <input type="text" class="form-control" id="txtnombre" name="txtnombre" placeholder="Ingrese sus nombres y apellidos." maxlength="512" autofocus v-model="newNombre" >
                         </div>
                     </div>
 
@@ -113,7 +107,7 @@
                 </tr>
                 <tr v-for="responsable, key in responsables">
                     <td style="border:1px solid #ddd;">@{{key+pagination.from}}</td>
-                    <td style="border:1px solid #ddd;">@{{ responsable.nombres }} @{{ responsable.apellidos }}</td>
+                    <td style="border:1px solid #ddd;">@{{ responsable.nombres }}</td>
                     <td style="border:1px solid #ddd;">@{{ responsable.cargo }}</td>
                     <td style="border:1px solid #ddd;" style="vertical-align: middle;">
                         <center>
@@ -188,16 +182,9 @@
 
                 <div class="modal-body">
                     <div class="row">
-
-                        <div class="col-12 input-group">
-                            <label for="txtapellidoE" class="col-3 control-label">Apellidos: <b style="color: red"> *</b></label>
-                            <div class="col-8">
-                                <input type="text" class="form-control" id="txtapellidoE" name="txtapellidoE" placeholder="Ingrese sus apellidos." maxlength="512" autofocus v-model="fillResponsable.apellidos" >
-                            </div>
-                        </div>
     
                         <div class="col-12 input-group  mt-3">
-                            <label for="txtnombre" class="col-3 control-label">Nombres: <b style="color: red"> *</b></label>
+                            <label for="txtnombre" class="col-3 control-label">Nombres y Apellidos: <b style="color: red"> *</b></label>
                             <div class="col-8">
                                 <input type="text" class="form-control" id="txtnombre" name="txtnombre" placeholder="Ingrese sus nombres." maxlength="512" autofocus v-model="fillResponsable.nombres" >
                             </div>

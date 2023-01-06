@@ -63,16 +63,8 @@ class CategoriaController extends Controller
             ->join('responsables', 'responsables.id', '=', 'categorias_responsables.responsable_id')
             ->orderBy('categorias_responsables.id', 'desc')
             ->where('categorias_responsables.categoria_id', $id)
-            ->select('categorias_responsables.id', 'categorias_responsables.categoria_id', 'categorias_responsables.responsable_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'responsables.id as idresponsable', 'responsables.apellidos', 'responsables.nombres')
+            ->select('categorias_responsables.id', 'categorias_responsables.categoria_id', 'categorias_responsables.responsable_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'responsables.id as idresponsable', 'responsables.nombres')
             ->paginate(15);
-
-        // $cburesponsables = DB::table('categorias_responsables')
-        //     ->join('categorias', 'categorias.id', '=', 'categorias_responsables.categoria_id')
-        //     ->join('responsables', 'responsables.id', '=', 'categorias_responsables.responsable_id')
-        //     ->orderBy('categorias_responsables.id', 'desc')
-        //     ->where('categorias_responsables.categoria_id','!=', $id)
-        //     ->select('categorias_responsables.id', 'categorias_responsables.categoria_id', 'categorias_responsables.responsable_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'responsables.id as idresponsable', 'responsables.apellidos', 'responsables.nombres')
-        //     ->paginate(15);
 
         $cburesponsables = Responsable::where('borrado', '0')->where('activo', '1')->orderBy('nombres')->get();
 

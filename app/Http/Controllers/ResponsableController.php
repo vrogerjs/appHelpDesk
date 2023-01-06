@@ -35,7 +35,6 @@ class ResponsableController extends Controller
 
         $responsables = Responsable::where('borrado', '0')
             ->where(function ($query) use ($buscar) {
-                $query->where('apellidos', 'like', '%' . $buscar . '%');
                 $query->orwhere('nombres', 'like', '%' . $buscar . '%');
                 $query->orwhere('cargo', 'like', '%' . $buscar . '%');
             })
@@ -73,7 +72,6 @@ class ResponsableController extends Controller
     public function store(Request $request)
     {
 
-        $apellidos = $request->apellidos;
         $nombres = $request->nombres;
         $cargo = $request->cargo;
         $activo = $request->activo;
@@ -82,24 +80,16 @@ class ResponsableController extends Controller
         $msj = '';
         $selector = '';
 
-        $input1  = array('apellidos' => $apellidos);
-        $reglas1 = array('apellidos' => 'required|unique:responsables');
-
         $input2  = array('nombres' => $nombres);
         $reglas2 = array('nombres' => 'required');
 
         $input3  = array('cargo' => $cargo);
         $reglas3 = array('cargo' => 'required');
 
-        $validator1 = Validator::make($input1, $reglas1);
         $validator2 = Validator::make($input2, $reglas2);
         $validator3 = Validator::make($input3, $reglas3);
 
-        if ($validator1->fails()) {
-            $result = '0';
-            $msj = 'Debe ingresar los apellidos del Responsable.';
-            $selector = 'txtapellidos';
-        } elseif ($validator2->fails()) {
+        if ($validator2->fails()) {
             $result = '0';
             $msj = 'Debe ingresar los nombres del Responsable.';
             $selector = 'txtnombres';
@@ -111,7 +101,6 @@ class ResponsableController extends Controller
 
             $newResponsable = new Responsable();
 
-            $newResponsable->apellidos = $apellidos;
             $newResponsable->nombres = $nombres;
             $newResponsable->cargo = $cargo;
             $newResponsable->activo = $activo;
@@ -156,7 +145,6 @@ class ResponsableController extends Controller
     public function update(Request $request, $id)
     {
 
-        $apellidos = $request->apellidos;
         $nombres = $request->nombres;
         $cargo = $request->cargo;
         $activo = $request->activo;
@@ -165,24 +153,16 @@ class ResponsableController extends Controller
         $msj = '';
         $selector = '';
 
-        $input1  = array('apellidos' => $apellidos);
-        $reglas1 = array('apellidos' => 'required');
-
         $input2  = array('nombres' => $nombres);
         $reglas2 = array('nombres' => 'required');
 
         $input3  = array('cargo' => $cargo);
         $reglas3 = array('cargo' => 'required');
 
-        $validator1 = Validator::make($input1, $reglas1);
         $validator2 = Validator::make($input2, $reglas2);
         $validator3 = Validator::make($input3, $reglas3);
 
-        if ($validator1->fails()) {
-            $result = '0';
-            $msj = 'Debe ingresar los apellidos del Responsable.';
-            $selector = 'txtapellidosE';
-        } elseif ($validator2->fails()) {
+        if ($validator2->fails()) {
             $result = '0';
             $msj = 'Debe ingresar los nombres del Responsable.';
             $selector = 'txtnombresE';
@@ -194,7 +174,6 @@ class ResponsableController extends Controller
 
             $responsable = Responsable::findOrFail($id);
 
-            $responsable->apellidos = $apellidos;
             $responsable->nombres = $nombres;
             $responsable->cargo = $cargo;
             $responsable->activo = $activo;
