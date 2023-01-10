@@ -42,18 +42,14 @@
                     </div>
 
                     <div class="col-12 input-group mt-3">
-                        <label for="cbuoficina" class="col-3 control-label">Seleccione la Oficina : <b
+                        <label for="txtoficina" class="col-3 control-label">Seleccione la Oficina : <b
                                 style="color: red"> *</b></label>
                         <div class="col-9">
-                            <select name="cbuoficina" id="cbuoficina" class="form-control" v-model="newOficina">
-                                <option disabled value="">Seleccione la Oficina</option>
-                                <option v-for="oficina, key in oficinas" v-bind:value="oficina.id">
-                                    @{{ oficina.oficina }}</option>
-                            </select>
+                            <p class="form-control">@{{ nombreOficina }}</p>
                         </div>
                     </div>
 
-                    <div class="col-12 input-group mt-3">
+                    <div class="col-12 input-group">
                         <label for="txtmotivo" class="col-3 control-label">Título de la Incidencia: <b
                                 style="color: red"> *</b></label>
                         <div class="col-8">

@@ -1,14 +1,11 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4" style="font-size: 13px;">
-
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="font-size: 14px;">
     <a href="/" class="brand-link text-center">
         <img src="{{ asset('img/logo.png') }}" alt="Gobierno Regional de Ancash" class="brand-image img-circle elevation-3"
             style="float:none;max-height: 100px;">
         <br>
-        <span class="brand-text font-weight-light">Gobierno Regional <br>de Ancash</span>
+        <span class="brand-text font-weight-light" style="text-decoration:none!important;">Gobierno Regional <br>de Ancash</span>
     </a>
-
     <div class="sidebar">
-
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <img src="{{ asset('img/user.png') }}" class="img-circle elevation-2" alt="User Image"
@@ -18,7 +15,6 @@
                 <a href="#" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
-
         <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
                 <input class="form-control form-control-sidebar" type="search" placeholder="Search"
@@ -30,7 +26,6 @@
                 </div>
             </div>
         </div>
-
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
@@ -73,7 +68,7 @@
                     </li>
                 @endif
 
-                @if (accesoUser([1,2,3]))
+                @if (accesoUser([1, 2, 3]))
                     <li class="nav-item menu-open">
                         <a href="#" v-bind:class="classMenu2">
                             <i class="nav-icon fa fa-home"></i>
@@ -98,19 +93,7 @@
                         </ul>
                     </li>
                 @endif
-
-                {{-- <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-              Simple Link
-              <span class="right badge badge-danger">New</span>
-            </p>
-          </a>
-        </li> --}}
             </ul>
         </nav>
-
     </div>
-
 </aside>

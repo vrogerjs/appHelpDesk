@@ -46,7 +46,6 @@ class SolucionController extends Controller
                 ->join('incidencias', 'incidencias.id', '=', 'solucions.incidencia_id')
                 ->join('users as us', 'us.id', '=', 'solucions.user_id')
                 ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
-                ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
                 ->join('users', 'users.id', '=', 'incidencias.user_id')
                 ->where('incidencias.estado', '1')
                 ->where(function ($query) use ($buscar) {
@@ -54,14 +53,13 @@ class SolucionController extends Controller
                     $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
                 })
                 ->orderBy('solucions.id', 'desc')
-                ->select('solucions.detalle as soldetalle', 'solucions.fecsolucion', 'incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres', 'us.nombres as usernombre')
+                ->select('solucions.detalle as soldetalle', 'solucions.fecsolucion', 'incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'users.nombres', 'us.nombres as usernombre')
                 ->paginate(15);
         } elseif ($idtipouser == 2) {
             $solucions = DB::table('solucions')
                 ->join('incidencias', 'incidencias.id', '=', 'solucions.incidencia_id')
                 ->join('users as us', 'us.id', '=', 'solucions.user_id')
                 ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
-                ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
                 ->join('users', 'users.id', '=', 'incidencias.user_id')
                 ->where('incidencias.estado', '1')
                 ->where('solucions.user_id', $iduser)
@@ -70,14 +68,13 @@ class SolucionController extends Controller
                     $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
                 })
                 ->orderBy('solucions.id', 'desc')
-                ->select('solucions.detalle as soldetalle', 'solucions.fecsolucion', 'incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres', 'us.nombres as usernombre')
+                ->select('solucions.detalle as soldetalle', 'solucions.fecsolucion', 'incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'users.nombres', 'us.nombres as usernombre')
                 ->paginate(15);
         } else {
             $solucions = DB::table('solucions')
                 ->join('incidencias', 'incidencias.id', '=', 'solucions.incidencia_id')
                 ->join('users as us', 'us.id', '=', 'solucions.user_id')
                 ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
-                ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
                 ->join('users', 'users.id', '=', 'incidencias.user_id')
                 ->where('incidencias.estado', '1')
                 ->where('incidencias.user_id', $iduser)
@@ -86,7 +83,7 @@ class SolucionController extends Controller
                     $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
                 })
                 ->orderBy('solucions.id', 'desc')
-                ->select('solucions.detalle as soldetalle', 'solucions.fecsolucion', 'incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres', 'us.nombres as usernombre')
+                ->select('solucions.detalle as soldetalle', 'solucions.fecsolucion', 'incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'users.nombres', 'us.nombres as usernombre')
                 ->paginate(15);
         }
 

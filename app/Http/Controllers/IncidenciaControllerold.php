@@ -50,7 +50,7 @@ class IncidenciaController extends Controller
         $data = json_decode($data);
 
         // $directorySession = $data->directory;
-        $directorySession = '18';
+        $directorySession = '15';
 
         $client = new Client();
         $request = new Psr7Request('GET', 'https://web.regionancash.gob.pe/admin/rh/api/contract/0/10?peopleId=' . $directorySession . '&active=1');
@@ -62,6 +62,7 @@ class IncidenciaController extends Controller
         if ($idtipouser == 1) {
             $incidencias = DB::table('incidencias')
                 ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
+                ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
                 ->join('users', 'users.id', '=', 'incidencias.user_id')
                 ->where('incidencias.estado', '0')
                 ->where(function ($query) use ($buscar) {
@@ -69,11 +70,12 @@ class IncidenciaController extends Controller
                     $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
                 })
                 ->orderBy('incidencias.id', 'desc')
-                ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'users.nombres')
+                ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres')
                 ->paginate(15);
         } elseif ($idtipouser == 2) {
             $incidencias = DB::table('incidencias')
                 ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
+                ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
                 ->join('users', 'users.id', '=', 'incidencias.user_id')
                 ->join('categorias_responsables', 'categorias.id', '=', 'categorias_responsables.categoria_id')
                 ->join('responsables', 'responsables.id', '=', 'categorias_responsables.responsable_id')
@@ -84,11 +86,12 @@ class IncidenciaController extends Controller
                     $query->where('incidencias.motivo', 'like', '%' . $buscar . '%');
                     $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
                 })
-                ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'users.nombres')
+                ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres')
                 ->paginate(15);
         } else {
             $incidencias = DB::table('incidencias')
                 ->join('categorias', 'categorias.id', '=', 'incidencias.categoria_id')
+                ->join('oficinas', 'oficinas.id', '=', 'incidencias.oficina_id')
                 ->join('users', 'users.id', '=', 'incidencias.user_id')
                 ->where('incidencias.estado', '0')
                 ->where('incidencias.user_id', $iduser)
@@ -97,7 +100,7 @@ class IncidenciaController extends Controller
                     $query->orWhere('incidencias.detalle', 'like', '%' . $buscar . '%');
                 })
                 ->orderBy('incidencias.id', 'desc')
-                ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'users.nombres')
+                ->select('incidencias.id', 'incidencias.motivo', 'incidencias.detalle', 'incidencias.fecincidencia', 'incidencias.estado', 'incidencias.prioridad', 'incidencias.activo', 'incidencias.borrado', 'incidencias.categoria_id', 'incidencias.oficina_id', 'incidencias.user_id', 'categorias.id as idcategoria', 'categorias.name as categoria', 'oficinas.id as idoficina', 'oficinas.oficina', 'users.nombres')
                 ->paginate(15);
         }
 
@@ -145,7 +148,7 @@ class IncidenciaController extends Controller
         $detalle = $request->detalle;
         $prioridad = $request->prioridad;
         $categoria_id = $request->categoria_id;
-        $oficina = $request->oficina;
+        $oficina_id = $request->oficina_id;
         $activo = $request->activo;
         $date = Carbon::now();
 
@@ -154,7 +157,7 @@ class IncidenciaController extends Controller
         $selector = '';
 
         $input1  = array('motivo' => $motivo);
-        $reglas1 = array('motivo' => 'required');
+        $reglas1 = array('motivo' => 'required|unique:incidencias');
 
         $input2  = array('detalle' => $detalle);
         $reglas2 = array('detalle' => 'required');
@@ -162,8 +165,8 @@ class IncidenciaController extends Controller
         $input3  = array('categoria_id' => $categoria_id);
         $reglas3 = array('categoria_id' => 'required');
 
-        $input4  = array('oficina' => $oficina);
-        $reglas4 = array('oficina' => 'required');
+        $input4  = array('oficina_id' => $oficina_id);
+        $reglas4 = array('oficina_id' => 'required');
 
         $validator1 = Validator::make($input1, $reglas1);
         $validator2 = Validator::make($input2, $reglas2);
@@ -176,8 +179,8 @@ class IncidenciaController extends Controller
             $selector = 'cbucategoria';
         } elseif ($validator4->fails()) {
             $result = '0';
-            $msj = 'Ingrese la Oficina.';
-            $selector = 'txtoficina';
+            $msj = 'Seleccion la Oficina.';
+            $selector = 'cbuoficina';
         } elseif ($validator1->fails()) {
             $result = '0';
             $msj = 'Debe ingresar el título de la Incidencia.';
@@ -196,7 +199,7 @@ class IncidenciaController extends Controller
             $newIncidencia->estado = '0';
             $newIncidencia->prioridad = $prioridad;
             $newIncidencia->categoria_id = $categoria_id;
-            $newIncidencia->oficina = $oficina;
+            $newIncidencia->oficina_id = $oficina_id;
             $newIncidencia->user_id = Auth::user()->id;
             $newIncidencia->activo = $activo;
             $newIncidencia->borrado = '0';

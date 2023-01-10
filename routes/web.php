@@ -4,14 +4,15 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\ResponsableController;
 use App\Http\Controllers\SolucionController;
-use App\Models\User;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redirect;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request as Psr7Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,52 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Route::get('/', function (Request $request) {
+//     $code = $request->query('code');
+//     if (!isset($code)) {
+//         return Redirect::to('http://web.regionancash.gob.pe/api/oauth/authorize?response_type=code&client_id=DDc3q7V6rIKj4rdQlrg8yT2R');
+//         return $code;
+//     } else {
+//         try {
+//             $client = new Client();
+//             $headers = [
+//                 'Content-Type' => 'text/plain'
+//             ];
+//             $request = new Psr7Request('POST', 'http://web.regionancash.gob.pe/api/auth/token', $headers, $code);
+//             $res = $client->sendAsync($request)->wait();
+//             $token = json_decode($res->getBody());
+//             $token = $token->token;
+
+//             $data = str_replace('_', '/', str_replace('-', '+', explode('.', $token)[1]));
+//             $users = json_decode(base64_decode($data));
+//             if ($user = User::where('name', $users->user)->first()) {
+//                 Auth::login($user);
+//                 $modulo = "inicioAdmin";
+//                 $uid = $users->uid;
+//                 Session::put('uid', $uid);
+
+//                 return view('inicio.home', compact('users', 'modulo'));
+//             } else {
+
+//                 $newUser = new User();
+
+//                 // $newUser->nombres = $motivo;
+//                 // $newUser->name = $detalle;
+//                 // $newUser->email = $date;
+//                 $newUser->password = Hash::make($data[]);
+//                 $newUser->remember_token = Hash::make($data[]);
+//                 $newUser->tipouser_id = '3';
+//                 $newUser->save();
+
+//                 return view('/acceso');
+//             }
+//         } catch (\Throwable $th) {
+//             return $th->getMessage();
+//         }
+//     }
+// });
+
 
 Route::get('/', function (Request $request) {
     $code = $request->query('code');
@@ -42,12 +89,34 @@ Route::get('/', function (Request $request) {
 
             $data = str_replace('_', '/', str_replace('-', '+', explode('.', $token)[1]));
             $users = json_decode(base64_decode($data));
+            // return $users;
+            $uidSession = $users->uid;
+            $fullNameSession = $users->fullName;
+            $directorySession = $users->directory;
+            $userSession = $users->user;
+
             if ($user = User::where('name', $users->user)->first()) {
                 Auth::login($user);
-                $modulo = "inicioAdmin";
+                Session(['uid' => $uidSession]);
+                Session(['fullName' => $fullNameSession]);
+                Session(['directory' => $directorySession]);
+                Session(['user' => $userSession]);
 
-                return view('inicio.home', compact('users', 'modulo'));
+                $modulo = 'inicioAdmin';
+
+                return view('inicio.home', compact('modulo'));
             } else {
+
+                $newUser = new User();
+
+                $newUser->nombres = $fullNameSession;
+                $newUser->name = $userSession;
+                $newUser->email = $userSession;
+                $newUser->password = Hash::make($userSession);
+                $newUser->remember_token = Hash::make($userSession);
+                $newUser->tipouser_id = '3';
+                $newUser->save();
+
                 return view('/acceso');
             }
         } catch (\Throwable $th) {

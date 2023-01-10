@@ -14,7 +14,6 @@
 
                 userPerfil: '{{ Auth::user()->name }}',
                 mailPerfil: '{{ Auth::user()->email }}',
-                $idusers: $iduser,
 
                 divloader0: true,
                 divloader1: false,
@@ -28,21 +27,19 @@
                 divloader9: false,
                 divloader10: false,
 
-
-                classTitle: 'fa fa-home',
-                classMenu0: '',
-                classMenu1: '',
-                classMenu2: '',
-                classMenu3: '',
-                classMenu4: '',
-                classMenu5: '',
-                classMenu6: '',
-                classMenu7: '',
-                classMenu8: '',
-                classMenu9: '',
-                classMenu10: '',
-                classMenu11: '',
-                classMenu12: '',
+                classMenu: 'nav-link active',
+                classMenu1: 'nav-link ',
+                classMenu2: 'nav-link ',
+                classMenu3: 'nav-link ',
+                classMenu4: 'nav-link ',
+                classMenu5: 'nav-link ',
+                classMenu6: 'nav-link ',
+                classMenu7: 'nav-link ',
+                classMenu8: 'nav-link ',
+                classMenu9: 'nav-link ',
+                classMenu10: 'nav-link ',
+                classMenu11: 'nav-link ',
+                classMenu12: 'nav-link ',
 
                 divhome: false,
 

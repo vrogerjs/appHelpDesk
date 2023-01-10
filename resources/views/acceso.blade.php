@@ -4,14 +4,15 @@
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="card col-4 p-0 text-center" style="margin-right: 2em;">
-                <div class="card-header bg-danger">
+                <div class="card-header bg-success">
                     Mensaje del Sistema.
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Credenciales Incorrectas.</h5>
+                    <p>Se crearon sus credenciales de forma satisfactoria, haga click en actualizar
+                        para volver a ingresar al <b>Sistema de HelpDesk del Gobierno Regional de Ancash.</b></p>
                 </div>
                 <div class="card-footer">
-                    <button href="/" type="button" class="btn btn-primary btn-sm">Actualizar</button>
+                    <button href="http://localhost:8000/" type="button" class="btn btn-primary btn-sm">Actualizar</button>
                 </div>
             </div>
             <div class="col-md-7">
