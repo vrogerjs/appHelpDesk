@@ -28,6 +28,9 @@
         </div>
     </div>
 
+    {{$modulo}}
+    {{-- {{$users}} --}}
+
     @include('layouts.partials.scripts')
 
 </body>

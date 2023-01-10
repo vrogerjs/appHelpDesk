@@ -34,6 +34,7 @@
                 categorias: [],
                 responsables: [],
                 cburesponsables: [],
+                users: [],
                 errors: [],
 
                 fillCategoria: {
@@ -118,6 +119,7 @@
                 axios.get(url).then(response => {
                     this.categorias = response.data.categorias.data;
                     this.pagination = response.data.pagination;
+                    this.users = response.data.users;
 
                     if (this.categorias.length == 0 && this.thispage != '1') {
                         var a = parseInt(this.thispage);

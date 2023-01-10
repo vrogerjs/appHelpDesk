@@ -64,7 +64,7 @@
             <a href="solucions" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        @endif
+        @endif    
         
       </div>
     </div>

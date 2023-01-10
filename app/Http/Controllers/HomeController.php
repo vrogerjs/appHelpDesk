@@ -29,9 +29,7 @@ class HomeController extends Controller
         $idtipouser = Auth::user()->tipouser_id;
         // $tipouser = Tipouser::find($idtipouser);
         $modulo = "inicioAdmin";
-
         $usuarios = User::count();
-
         
         return view('inicio.home', compact('modulo', 'iduser','usuarios'));
     }
