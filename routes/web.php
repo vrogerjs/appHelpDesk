@@ -142,7 +142,7 @@ Route::get('/incidencias', [IncidenciaController::class, 'index1'])->name('/inci
 Route::get('/incidencia/altabaja/{id}/{var}', [IncidenciaController::class, 'altabaja']);
 Route::resource('/incidencia', IncidenciaController::class);
 
-Route::get('/solucions', [SolucionController::class, 'index1'])->name('solucions');
+Route::get('solucions', [SolucionController::class, 'index1'])->name('solucions');
 Route::get('/solucion/altabaja/{id}/{var}', [SolucionController::class, 'altabaja'])->name('altabaja');
 Route::resource('solucion', SolucionController::class);
 
