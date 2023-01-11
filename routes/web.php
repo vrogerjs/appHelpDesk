@@ -97,11 +97,19 @@ Route::get('/', function (Request $request) {
                 $users = json_decode(base64_decode($data));
                 // return $users;
                 $uidSession = $users->uid;
+                
                 if (isset($users->fullName)) {
                     $fullNameSession = $users->fullName;
                 } else {
                     $fullNameSession = 'User';
                 }
+
+                if (isset($users->directory)) {
+                    $directorySession = $users->directory;
+                } else {
+                    $directorySession = null;
+                }
+
                 $directorySession = $users->directory;
                 $userSession = $users->user;
 
