@@ -3,6 +3,8 @@
         createApp
     } = Vue
 
+    const BASE_URL = '{{ url('') }}';
+
     createApp({
         data() {
             return {
@@ -245,7 +247,8 @@
             },
 
             updateResponsable: function(id) {
-                var url = "/responsable/" + id;
+                // var url = "/responsable/" + id;
+                var url = `${BASE_URL}/responsable/${id}`;
                 $("#btnSaveE").attr('disabled', true);
                 $("#btnCloseE").attr('disabled', true);
                 this.divloaderEdit = true;
