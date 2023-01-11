@@ -97,7 +97,7 @@ Route::get('/', function (Request $request) {
                 $users = json_decode(base64_decode($data));
                 // return $users;
                 $uidSession = $users->uid;
-                
+
                 if (isset($users->fullName)) {
                     $fullNameSession = $users->fullName;
                 } else {
@@ -110,7 +110,6 @@ Route::get('/', function (Request $request) {
                     $directorySession = null;
                 }
 
-                $directorySession = $users->directory;
                 $userSession = $users->user;
 
                 if ($user = User::where('name', $users->user)->first()) {
