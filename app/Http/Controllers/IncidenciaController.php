@@ -49,8 +49,8 @@ class IncidenciaController extends Controller
         $data = json_encode(Session::all());
         $data = json_decode($data);
 
-        // $directorySession = $data->directory;
-        $directorySession = '18';
+        $directorySession = $data->directory;
+        // $directorySession = '18';
 
         $client = new Client();
         $request = new Psr7Request('GET', 'https://web.regionancash.gob.pe/admin/rh/api/contract/0/10?peopleId=' . $directorySession . '&active=1');

@@ -73,8 +73,9 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('/', function (Request $request) {
     $code = $request->query('code');
+    $client_id_oauth = env('CLIENT_ID_OAUTH');
     if (!isset($code)) {
-        return Redirect::to('http://web.regionancash.gob.pe/api/oauth/authorize?response_type=code&client_id=DDc3q7V6rIKj4rdQlrg8yT2R');
+        return Redirect::to('http://web.regionancash.gob.pe/api/oauth/authorize?response_type=code&client_id=' . $client_id_oauth);
         return $code;
     } else {
         try {
