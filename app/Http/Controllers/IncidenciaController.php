@@ -49,7 +49,12 @@ class IncidenciaController extends Controller
         $data = json_encode(Session::all());
         $data = json_decode($data);
 
-        $directorySession = $data->directory;
+        if (isset($data->directory)) {
+            $directorySession = $data->directory;
+        } else {
+            $directorySession = null;
+        }
+
         // $directorySession = '18';
 
         $client = new Client();
