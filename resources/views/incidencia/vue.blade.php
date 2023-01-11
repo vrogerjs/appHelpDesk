@@ -118,7 +118,12 @@
                     this.categorias = response.data.categorias;
                     this.oficinas = response.data.oficinas;
                     this.oficinasAPI = response.data.oficinasAPI;
-                    this.nombreOficina = this.oficinasAPI.data[0].dependency.fullName;
+
+                    if (!isset(this.oficinasAPI.data[0].dependency.fullName)) {
+                        this.nombreOficina = this.oficinasAPI.data[0].dependency.fullName;
+                    } else {
+                        this.nombreOficina = 'Oficina default';
+                    }
 
                     console.log('holaaaa', this.abc);
 
