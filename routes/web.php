@@ -70,62 +70,69 @@ use Illuminate\Support\Facades\Session;
 //     }
 // });
 
-
 Route::get('/', function (Request $request) {
+    $data = json_encode(Session::all());
+    $data = json_decode($data);
 
-    // $code = $request->query('code');
-    // $client_id_oauth = env('CLIENT_ID_OAUTH');
-    // if (!isset($code)) {
-    //     return Redirect::to('http://web.regionancash.gob.pe/api/oauth/authorize?response_type=code&client_id=' . $client_id_oauth);
-    //     return $code;
-    // } else {
-    //     try {
-    //         $client = new Client();
-    //         $headers = [
-    //             'Content-Type' => 'text/plain'
-    //         ];
-    //         $request = new Psr7Request('POST', 'http://web.regionancash.gob.pe/api/auth/token', $headers, $code);
-    //         $res = $client->sendAsync($request)->wait();
-    //         $token = json_decode($res->getBody());
-    //         $token = $token->token;
+    if (!isset($data->uid)) {
+        $code = $request->query('code');
+        $client_id_oauth = env('CLIENT_ID_OAUTH');
+        // $client_id_oauth = 'DDc3q7V6rIKj4rdQlrg8yT2R';
+        // return $client_id_oauth;
+        if (!isset($code)) {
+            return Redirect::to('http://web.regionancash.gob.pe/api/oauth/authorize?response_type=code&client_id=' . $client_id_oauth);
+            return $code;
+        } else {
+            try {
+                $client = new Client();
+                $headers = [
+                    'Content-Type' => 'text/plain'
+                ];
+                $request = new Psr7Request('POST', 'http://web.regionancash.gob.pe/api/auth/token', $headers, $code);
+                $res = $client->sendAsync($request)->wait();
+                $token = json_decode($res->getBody());
+                $token = $token->token;
 
-    //         $data = str_replace('_', '/', str_replace('-', '+', explode('.', $token)[1]));
-    //         $users = json_decode(base64_decode($data));
-    //         // return $users;
-    //         $uidSession = $users->uid;
-    //         $fullNameSession = $users->fullName;
-    //         $directorySession = $users->directory;
-    //         $userSession = $users->user;
+                $data = str_replace('_', '/', str_replace('-', '+', explode('.', $token)[1]));
+                $users = json_decode(base64_decode($data));
+                // return $users;
+                $uidSession = $users->uid;
+                $fullNameSession = $users->fullName;
+                $directorySession = $users->directory;
+                $userSession = $users->user;
 
-    //         if ($user = User::where('name', $users->user)->first()) {
-    //             Auth::login($user);
-    //             Session(['uid' => $uidSession]);
-    //             Session(['fullName' => $fullNameSession]);
-    //             Session(['directory' => $directorySession]);
-    //             Session(['user' => $userSession]);
+                if ($user = User::where('name', $users->user)->first()) {
+                    Auth::login($user);
+                    Session(['uid' => $uidSession]);
+                    Session(['fullName' => $fullNameSession]);
+                    Session(['directory' => $directorySession]);
+                    Session(['user' => $userSession]);
 
-    //             $modulo = 'inicioAdmin';
+                    $modulo = 'inicioAdmin';
 
-    //             return view('inicio.home', compact('modulo'));
-    //         } else {
+                    return view('inicio.home', compact('modulo'));
+                } else {
 
-    //             $newUser = new User();
+                    $newUser = new User();
 
-    //             $newUser->nombres = $fullNameSession;
-    //             $newUser->name = $userSession;
-    //             $newUser->email = $userSession;
-    //             $newUser->password = Hash::make($userSession);
-    //             $newUser->remember_token = Hash::make($userSession);
-    //             $newUser->tipouser_id = '3';
-    //             $newUser->save();
+                    $newUser->nombres = $fullNameSession;
+                    $newUser->name = $userSession;
+                    $newUser->email = $userSession;
+                    $newUser->password = Hash::make($userSession);
+                    $newUser->remember_token = Hash::make($userSession);
+                    $newUser->tipouser_id = '3';
+                    $newUser->save();
 
-    //             return view('/acceso');
-    //         }
-    //     } catch (\Throwable $th) {
-    //         return $th->getMessage();
-    //     }
-    // }
-
+                    return view('/acceso');
+                }
+            } catch (\Throwable $th) {
+                return $th->getMessage();
+            }
+        }
+    } else {
+        $modulo = 'inicioAdmin';
+        return view('inicio.home', compact('modulo'));
+    }
 });
 
 Auth::routes();

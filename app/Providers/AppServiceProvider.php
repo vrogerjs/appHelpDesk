@@ -14,9 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('path.public', function () {
-            return base_path() . '/';
-        });
+        // $this->app->bind('path.public', function () {
+        //     return base_path() . '/';
+        // });
     }
 
     /**
@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
             \URL::forceScheme('https');
             //use \URL:forceSchema('https') if you use laravel < 5.4
         }
-        
+
         Schema::defaultStringLength(191);
     }
 }
