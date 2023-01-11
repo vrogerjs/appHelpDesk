@@ -295,9 +295,9 @@
 
                 $("#modalAsignar").modal('show');
                 // this.fillResponsable.id=responsable.id;
-                var url = '/verResponsables/' + categoria.id;
+                // var url = '/verResponsables/' + categoria.id;
+                var url = `${BASE_URL}/verResponsables/${categoria.id}`;
                 axios.get(url).then(response => {
-                    console.log('Demo:', response);
                     this.responsables = response.data.responsables.data;
                     this.cburesponsables = response.data.cburesponsables;
                 })
@@ -317,7 +317,9 @@
             },
 
             asignarResponsable: function(categoria_id) {
-                var url = "/asignarresponsable/" + categoria_id;
+                // var url = "/asignarresponsable/" + categoria_id;
+                var url = `${BASE_URL}/asignarresponsable/${categoria_id}`;
+
                 $("#btnSaveE").attr('disabled', true);
                 $("#btnCloseE").attr('disabled', true);
                 this.divloaderEdit = true;
