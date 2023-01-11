@@ -2,7 +2,7 @@
     const {
         createApp
     } = Vue
-
+    const BASE_URL = {{ url('') }};
     createApp({
         data() {
             return {
@@ -251,8 +251,8 @@
                 })
             },
 
-            updateCategoria: function(id) {
-                var url = "/categoria/" + id;
+            updateCategoria(id) {
+                var url = `${BASE_URL}categoria/${id}`;
                 $("#btnSaveE").attr('disabled', true);
                 $("#btnCloseE").attr('disabled', true);
                 this.divloaderEdit = true;
