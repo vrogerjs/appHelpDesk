@@ -2,7 +2,7 @@
     const {
         createApp
     } = Vue
-    const BASE_URL = {{ url('') }};
+    const BASE_URL = '{{ url('/') }}';
     createApp({
         data() {
             return {
