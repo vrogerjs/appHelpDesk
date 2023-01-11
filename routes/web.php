@@ -128,24 +128,24 @@ Route::get('/', function (Request $request) {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('/home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 
 Route::get('/categorias', [CategoriaController::class, 'index1'])->name('/categorias');
-Route::get('/categoria/altabaja/{id}/{var}', [CategoriaController::class, 'altabaja'])->name('/altabaja');
-Route::resource('categoria', CategoriaController::class);
+Route::get('/categoria/altabaja/{id}/{var}', [CategoriaController::class, 'altabaja']);
+Route::resource('/categoria', CategoriaController::class);
 
-Route::get('/responsables', [ResponsableController::class, 'index1'])->name('/responsables');
-Route::get('/responsable/altabaja/{id}/{var}', [ResponsableController::class, 'altabaja'])->name('/altabaja');
-Route::resource('responsable', ResponsableController::class);
+Route::get('/responsables', [ResponsableController::class, 'index1']);
+Route::get('/responsable/altabaja/{id}/{var}', [ResponsableController::class, 'altabaja']);
+Route::resource('/responsable', ResponsableController::class);
 
 Route::get('/incidencias', [IncidenciaController::class, 'index1'])->name('/incidencias');
-Route::get('/incidencia/altabaja/{id}/{var}', [IncidenciaController::class, 'altabaja'])->name('/altabaja');
-Route::resource('incidencia', IncidenciaController::class);
+Route::get('/incidencia/altabaja/{id}/{var}', [IncidenciaController::class, 'altabaja']);
+Route::resource('/incidencia', IncidenciaController::class);
 
-Route::get('/solucions', [SolucionController::class, 'index1'])->name('/solucions');
-Route::get('/solucion/altabaja/{id}/{var}', [SolucionController::class, 'altabaja'])->name('/altabaja');
-Route::resource('solucion', SolucionController::class);
+Route::get('/solucions', [SolucionController::class, 'index1']);
+Route::get('/solucion/altabaja/{id}/{var}', [SolucionController::class, 'altabaja']);
+Route::resource('/solucion', SolucionController::class);
 
-Route::get('/verResponsables/{id}', [CategoriaController::class, 'verResponsables'])->name('/verResponsables');
+Route::get('/verResponsables/{id}', [CategoriaController::class, 'verResponsables']);
 
-Route::put('/asignarresponsable/{categoria_id}', [CategoriaController::class, 'asignarResponsables'])->name('/asignarResponsables');
+Route::put('/asignarresponsable/{categoria_id}', [CategoriaController::class, 'asignarResponsables']);
