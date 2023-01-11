@@ -53,7 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
-    'asset_url' => env('ASSET_URL', '/admin/helpdesk/public'),
+    'asset_url' => env('ASSET_URL', '/admin/helpdesk/'),
 
     // 'url' => env('APP_URL', 'http://localhost'),
     // 'asset_url' => env('ASSET_URL', null),
