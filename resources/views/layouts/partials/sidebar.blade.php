@@ -79,7 +79,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{route('incidencias')}}" class="nav-link">
+                                <a href="{{url('/incidencias')}}" class="nav-link">
                                     <i class="fa-solid fa-location-arrow"></i>&nbsp;
                                     <p>Gestión de Tickets</p>
                                 </a>

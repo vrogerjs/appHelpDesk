@@ -52,6 +52,10 @@ return [
     |
     */
 
+    // 'url' => env('APP_URL', 'https://web.regionancash.gob.pe/admin/helpdesk/'),
+
+    // 'asset_url' => env('ASSET_URL', '/admin/helpdesk/public'),
+
     'url' => env('APP_URL', 'https://web.regionancash.gob.pe/admin/helpdesk/'),
 
     'asset_url' => env('ASSET_URL', '/admin/helpdesk/public'),
