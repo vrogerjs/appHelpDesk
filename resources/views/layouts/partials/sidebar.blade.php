@@ -3,7 +3,8 @@
         <img src="{{ asset('img/logo.png') }}" alt="Gobierno Regional de Ancash" class="brand-image img-circle elevation-3"
             style="float:none;max-height: 100px;">
         <br>
-        <span class="brand-text font-weight-light" style="text-decoration:none!important;">Gobierno Regional <br>de Ancash</span>
+        <span class="brand-text font-weight-light" style="text-decoration:none!important;">Gobierno Regional <br>de
+            Ancash</span>
     </a>
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -51,14 +52,14 @@
                         <ul class="nav nav-treeview">
 
                             <li class="nav-item">
-                                <a href="categorias" class="nav-link">
+                                <a href="{{ url('categorias') }}" class="nav-link">
                                     <i class="fa-solid fa-location-arrow"></i>&nbsp;
                                     <p>Gestión de Categorías</p>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="responsables" class="nav-link">
+                                <a href="{{ url('responsables') }}" class="nav-link">
                                     <i class="fa-solid fa-location-arrow"></i>&nbsp;
                                     <p>Gestión de Responsables</p>
                                 </a>
@@ -79,13 +80,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{url('/incidencias')}}" class="nav-link">
+                                <a href="{{ url('incidencias') }}" class="nav-link">
                                     <i class="fa-solid fa-location-arrow"></i>&nbsp;
                                     <p>Gestión de Tickets</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="solucions" class="nav-link">
+                                <a href="{{ url('solucions') }}" class="nav-link">
                                     <i class="fa-solid fa-location-arrow"></i>&nbsp;
                                     <p>Gestión de Respuestas</p>
                                 </a>
