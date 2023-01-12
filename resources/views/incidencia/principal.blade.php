@@ -15,7 +15,7 @@
         </div>
         <div class="card-body">
             <button href="#" class="btn btn-success" id="btnCrear" @click.prevent="nuevo()"><i
-                    class="fa fa-plus-square-o" aria-hidden="true"></i> Nueva Incidencia</button>
+                    class="fa fa-plus" aria-hidden="true"></i> Nueva Incidencia</button>
         </div>
     </div>
 

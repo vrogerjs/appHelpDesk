@@ -32,7 +32,7 @@
                 data-accordion="false">
 
                 <li class="nav-item">
-                    <a href="/home" v-bind:class="classMenu">
+                    <a href="{{ url('home') }}" v-bind:class="classMenu">
                         <i class="nav-icon fa fa-home"></i>
                         <p>
                             Home

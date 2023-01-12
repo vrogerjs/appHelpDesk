@@ -14,10 +14,10 @@
                                 <p>Gestión de Categorías</p>
                             </div>
                             <div class="icon pt-4">
-                                <i class="fas fa-bag"></i>
+                                <i class="fas fa-layer-group"></i>
                             </div>
-                            <a href="{{ url('categorias') }}" class="small-box-footer">Ingresar <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{ url('categorias') }}" class="small-box-footer mt-2"
+                                style="padding: 5px 0!important">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 @endif
@@ -30,10 +30,10 @@
                                 <p>Gestión de Responsables</p>
                             </div>
                             <div class="icon pt-4">
-                                <i class="fas fa-stats-bars"></i>
+                                <i class="fas fa-users"></i>
                             </div>
-                            <a href="{{ url('responsables') }}" class="small-box-footer">Ingresar <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{ url('responsables') }}" class="small-box-footer mt-2"
+                                style="padding: 5px 0!important">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 @endif
@@ -46,10 +46,10 @@
                                 <p>Gestión de Tikets</p>
                             </div>
                             <div class="icon pt-4">
-                                <i class="fas fa-person-add"></i>
+                                <i class="fas fa-list"></i>
                             </div>
-                            <a href="{{ url('incidencias') }}" class="small-box-footer">Ingresar <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{ url('incidencias') }}" class="small-box-footer mt-2"
+                                style="padding: 5px 0!important">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 @endif
@@ -62,10 +62,10 @@
                                 <p>Gestión de Respuestas</p>
                             </div>
                             <div class="icon pt-4">
-                                <i class="fas fa-pie-graph"></i>
+                                <i class="fas fa-reply-all"></i>
                             </div>
-                            <a href="{{ url('solucions') }}" class="small-box-footer">Ingresar <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{ url('solucions') }}" class="small-box-footer mt-2"
+                                style="padding: 5px 0!important">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 @endif

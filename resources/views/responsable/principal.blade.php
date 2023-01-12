@@ -13,7 +13,7 @@
 
         </div>
         <div class="card-body">
-            <button href="#" class="btn btn-success" id="btnCrear" @click.prevent="nuevo()"><i class="fa fa-plus-square-o" aria-hidden="true" ></i> Nuevo Responsable</button>
+            <button href="#" class="btn btn-success" id="btnCrear" @click.prevent="nuevo()"><i class="fa fa-plus" aria-hidden="true" ></i> Nuevo Responsable</button>
         </div>
     </div>
 
