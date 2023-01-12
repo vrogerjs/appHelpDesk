@@ -92,9 +92,11 @@ Route::get('/', function (Request $request) {
                 $request = new Psr7Request('POST', 'http://web.regionancash.gob.pe/api/auth/token', $headers, $code);
                 $res = $client->sendAsync($request)->wait();
                 $token = json_decode($res->getBody());
-                $token = $token->token;
+                if (isset($token)) {
+                    $token = $token->token;
+                    $data = str_replace('_', '/', str_replace('-', '+', explode('.', $token)[1]));
+                }
 
-                $data = str_replace('_', '/', str_replace('-', '+', explode('.', $token)[1]));
                 $users = json_decode(base64_decode($data));
                 // return $users;
                 $uidSession = $users->uid;

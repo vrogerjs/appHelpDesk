@@ -167,22 +167,18 @@ class IncidenciaController extends Controller
         $input3  = array('categoria_id' => $categoria_id);
         $reglas3 = array('categoria_id' => 'required');
 
-        $input4  = array('oficina' => $oficina);
-        $reglas4 = array('oficina' => 'required');
+        // $input4  = array('oficina' => $oficina);
+        // $reglas4 = array('oficina' => 'required');
 
         $validator1 = Validator::make($input1, $reglas1);
         $validator2 = Validator::make($input2, $reglas2);
         $validator3 = Validator::make($input3, $reglas3);
-        $validator4 = Validator::make($input4, $reglas4);
+        // $validator4 = Validator::make($input4, $reglas4);
 
         if ($validator3->fails()) {
             $result = '0';
             $msj = 'Seleccion la Categoría.';
             $selector = 'cbucategoria';
-        } elseif ($validator4->fails()) {
-            $result = '0';
-            $msj = 'Ingrese la Oficina.';
-            $selector = 'txtoficina';
         } elseif ($validator1->fails()) {
             $result = '0';
             $msj = 'Debe ingresar el título de la Incidencia.';
