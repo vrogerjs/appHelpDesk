@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\ResponsableController;
 use App\Http\Controllers\SolucionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -169,3 +170,8 @@ Route::resource('solucion', SolucionController::class);
 Route::get('/verResponsables/{id}', [CategoriaController::class, 'verResponsables'])->name('verResponsables');
 
 Route::put('/asignarresponsable/{categoria_id}', [CategoriaController::class, 'asignarResponsables'])->name('asignarResponsables');
+
+
+Route::get('/users', [UserController::class, 'index1'])->name('users');
+Route::get('/user/altabaja/{id}/{var}', [UserController::class, 'altabaja'])->name('altabaja');
+Route::resource('user', UserController::class);

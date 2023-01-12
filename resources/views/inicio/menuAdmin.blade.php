@@ -8,6 +8,22 @@
 
                 @if (accesoUser([1]))
                     <div class="col-lg-3 col-6">
+                        <div class="small-box bg-primary" style="height: 143px;">
+                            <div class="inner">
+                                {{-- <h3>53<sup style="font-size: 20px">%</sup></h3> --}}
+                                <p>Gestión de Usuarios</p>
+                            </div>
+                            <div class="icon pt-4">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <a href="{{ url('users') }}" class="small-box-footer mt-2"
+                                style="padding: 5px 0!important">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                @endif
+
+                @if (accesoUser([1]))
+                    <div class="col-lg-3 col-6">
                         <div class="small-box bg-info" style="height: 143px;">
                             <div class="inner">
                                 {{-- <h3>10</h3> --}}
@@ -30,7 +46,7 @@
                                 <p>Gestión de Responsables</p>
                             </div>
                             <div class="icon pt-4">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-users-gear"></i>
                             </div>
                             <a href="{{ url('responsables') }}" class="small-box-footer mt-2"
                                 style="padding: 5px 0!important">Ingresar <i class="fas fa-arrow-circle-right"></i></a>

@@ -46,6 +46,6 @@
     @include('incidencia.vue')
 @elseif($modulo == 'solucion')
     @include('solucion.vue')
+@elseif($modulo == 'user')
+    @include('user.vue')
 @endif
-
-

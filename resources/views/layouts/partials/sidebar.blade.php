@@ -13,7 +13,7 @@
                     style="width: 4rem;">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                <a href="#" class="d-block">{{ Auth::user()->nombres }}</a>
             </div>
         </div>
         <div class="form-inline">
@@ -43,13 +43,20 @@
                 @if (accesoUser([1]))
                     <li class="nav-item menu-open">
                         <a href="#" v-bind:class="classMenu1">
-                            <i class="nav-icon fa fa-home"></i>
+                            <i class="nav-icon fa fa-layer-group"></i>
                             <p>
                                 Tablas Maestras
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+
+                            <li class="nav-item">
+                                <a href="{{ url('users') }}" class="nav-link">
+                                    <i class="fa-solid fa-location-arrow"></i>&nbsp;
+                                    <p>Gestión de Usuarios</p>
+                                </a>
+                            </li>
 
                             <li class="nav-item">
                                 <a href="{{ url('categorias') }}" class="nav-link">
@@ -72,7 +79,7 @@
                 @if (accesoUser([1, 2, 3]))
                     <li class="nav-item menu-open">
                         <a href="#" v-bind:class="classMenu2">
-                            <i class="nav-icon fa fa-home"></i>
+                            <i class="nav-icon fa fa-list"></i>
                             <p>
                                 Ticket de Incidencias
                                 <i class="right fas fa-angle-left"></i>

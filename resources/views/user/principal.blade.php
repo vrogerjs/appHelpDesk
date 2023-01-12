@@ -3,7 +3,7 @@
     <div class="card card-primary">
         <div class="card-header">
             <div class="row">
-                <h5 class="my-2 fw-bold col">Gestión de Categorías</h5>
+                <h5 class="my-2 fw-bold col">Gestión de Usuarios</h5>
                 <div class="col text-end fw-bold">
                     <a class="btn btn-secondary btn-sm" type="button" class="btn btn-default"
                         href="{{ URL::to('home') }}"><i class="fa fa-reply-all" aria-hidden="true"></i>
@@ -15,39 +15,71 @@
         </div>
         <div class="card-body">
             <button href="#" class="btn btn-success" id="btnCrear" @click.prevent="nuevo()"><i class="fa fa-plus"
-                    aria-hidden="true"></i> Nueva Categoría</button>
+                    aria-hidden="true"></i> Nuevo Usuario</button>
         </div>
     </div>
 
     <div class="card card-success" v-if="divNuevo">
         <div class="card-header">
-            <h5 class="m-0">Nueva Categoría</h5>
+            <h5 class="m-0">Nuevo Usuario</h5>
         </div>
 
         <form v-on:submit.prevent="create">
             <div class="card-body">
 
                 <div class="row">
+
                     <div class="col-12 input-group">
-                        <label for="txtname" class="col-3 control-label">Categoría: <b style="color: red">
+                        <label for="cbutipouser" class="col-3 control-label">Seleccione el Tipo de Usuario : <b
+                                style="color: red"> *</b></label>
+                        <div class="col-9">
+                            <select name="cbutipouser" id="cbutipouser" class="form-control" v-model="newTipouser">
+                                <option disabled value="">Seleccione el Tipo de Usuario</option>
+                                <option v-for="tipouser, key in tipousers" v-bind:value="tipouser.id">
+                                    @{{ tipouser.nombre }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 input-group mt-3">
+                        <label for="txtnombre" class="col-3 control-label">Nombres Completos: <b style="color: red">
                                 *</b></label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" id="txtnombre" name="txtnombre"
+                                placeholder="Ingrese los nombres completos." maxlength="512" autofocus
+                                v-model="newNombre">
+                        </div>
+                    </div>
+
+                    <div class="col-12 input-group mt-3">
+                        <label for="txtname" class="col-3 control-label">Username: <b style="color: red"> *</b></label>
                         <div class="col-8">
                             <input type="text" class="form-control" id="txtname" name="txtname"
-                                placeholder="Ingrese la categoría." maxlength="512" autofocus v-model="newName">
+                                placeholder="Ingrese el username." maxlength="64" v-model="newName">
                         </div>
                     </div>
 
                     <div class="col-12 input-group mt-3">
-                        <label for="txtdescripcion" class="col-3 control-label">Descripción: <b style="color: red">
+                        <label for="txtemail" class="col-3 control-label">Correo Electrónico: <b style="color: red">
                                 *</b></label>
                         <div class="col-8">
-                            <textarea id="txtdescripcion" name="txtdescripcion" class="form-control" placeholder="Ingrese la descripción."
-                                maxlength="1024" v-model="newDescripcion"></textarea>
+                            <input type="email" class="form-control" id="txtemail" name="txtemail"
+                                placeholder="Ingrese el correo electrónico." maxlength="64" v-model="newEmail">
                         </div>
                     </div>
 
                     <div class="col-12 input-group mt-3">
-                        <label for="cbuestado" class="col-3 control-label">Estado:<b style="color: red"> *</b></label>
+                        <label for="txtpassword" class="col-3 control-label">Contraseña: <b style="color: red">
+                                *</b></label>
+                        <div class="col-8">
+                            <input type="password" class="form-control" id="txtpassword" name="txtpassword"
+                                placeholder="Ingrese su contraseña." maxlength="255" v-model="newPassword">
+                        </div>
+                    </div>
+
+                    <div class="col-12 input-group mt-3">
+                        <label for="cbuestado" class="col-3 control-label">Estado:<b style="color: red">
+                                *</b></label>
                         <div class="col-4">
                             <select class="form-control" id="cbuestado" name="cbuestado" v-model="newEstado">
                                 <option value="1">Activado</option>
@@ -92,7 +124,7 @@
         <div class="card-header">
 
             <div class="row">
-                <h5 class="my-2 fw-bold col">Listado de Categorías</h5>
+                <h5 class="my-2 fw-bold col">Listado de Usuarios</h5>
                 <div class="col text-end fw-bold input-group">
                     <input type="text" name="table_search" class="form-control pull-right" placeholder="Buscar"
                         v-model="buscar" @keyup.enter="buscarBtn()">
@@ -109,38 +141,40 @@
                 <tbody>
                     <tr class="table-light">
                         <th style="border:1px solid #ddd;width: 5%;">#</th>
-                        <th style="border:1px solid #ddd;width: 20%;">Categoría</th>
-                        <th style="border:1px solid #ddd;width: 25%;">Descripción</th>
+                        <th style="border:1px solid #ddd;width: 20%;">Nombres y Apellidos</th>
+                        <th style="border:1px solid #ddd;width: 10%;">Usuario</th>
+                        <th style="border:1px solid #ddd;width: 20%;">Email</th>
+                        <th style="border:1px solid #ddd;width: 10%;">Tipo de Usuario</th>
                         <th style="border:1px solid #ddd;width: 10%;">Estado</th>
-                        <th style="border:1px solid #ddd;width: 20%;">Gestión</th>
+                        @if (accesoUser([1, 2]))
+                            <th style="border:1px solid #ddd;width: 20%;">Gestión</th>
+                        @endif
                     </tr>
-                    <tr v-for="categoria, key in categorias">
+                    <tr v-for="user, key in users">
                         <td style="border:1px solid #ddd;">@{{ key + pagination.from }}</td>
-                        <td style="border:1px solid #ddd;">@{{ categoria.name }}</td>
-                        <td style="border:1px solid #ddd;">@{{ categoria.descripcion }}</td>
+                        <td style="border:1px solid #ddd;">@{{ user.nombres }}</td>
+                        <td style="border:1px solid #ddd;">@{{ user.name }}</td>
+                        <td style="border:1px solid #ddd;">@{{ user.email }}</td>
+                        <td style="border:1px solid #ddd;">@{{ user.tipouser }}</td>
                         <td style="border:1px solid #ddd;" style="vertical-align: middle;">
                             <center>
-                                <span class="badge text-bg-success" v-if="categoria.activo=='1'">Activo</span>
-                                <span class="badge text-bg-warning" v-if="categoria.activo=='0'">Inactivo</span>
+                                <span class="badge text-bg-success" v-if="user.activo=='1'">Activo</span>
+                                <span class="badge text-bg-warning" v-if="user.activo=='0'">Inactivo</span>
                             </center>
                         </td>
                         <td style="border:1px solid #ddd;">
                             <center>
-                                <a href="#" class="btn btn-success m-1"
-                                    v-on:click.prevent="verResponsable(categoria)" data-placement="top"
-                                    data-toggle="tooltip" title="Asignar Responsable."><i
-                                        class="fa fa-users"></i></a>
-                                <a href="#" v-if="categoria.activo=='1'" class="btn bg-navy m-1"
-                                    v-on:click.prevent="baja(categoria)" data-placement="top" data-toggle="tooltip"
-                                    title="Desactivar Categoría."><i class="fa fa-arrow-circle-down"></i></a>
-                                <a href="#" v-if="categoria.activo=='0'" class="btn btn-success m-1"
-                                    v-on:click.prevent="alta(categoria)" data-placement="top" data-toggle="tooltip"
-                                    title="Activar Categoría."><i class="fa fa-check-circle"></i></a>
-                                <a href="#" class="btn btn-warning m-1" v-on:click.prevent="edit(categoria)"
-                                    data-placement="top" data-toggle="tooltip" title="Editar Categoría."><i
+                                <a href="#" v-if="user.activo=='1'" class="btn bg-navy m-1"
+                                    v-on:click.prevent="baja(user)" data-placement="top" data-toggle="tooltip"
+                                    title="Desactivar Usuario."><i class="fa fa-arrow-circle-down"></i></a>
+                                <a href="#" v-if="user.activo=='0'" class="btn btn-success m-1"
+                                    v-on:click.prevent="alta(user)" data-placement="top" data-toggle="tooltip"
+                                    title="Activar Usuario."><i class="fa fa-check-circle"></i></a>
+                                <a href="#" class="btn btn-warning m-1" v-on:click.prevent="edit(user)"
+                                    data-placement="top" data-toggle="tooltip" title="Editar Usuario."><i
                                         class="fa fa-edit"></i></a>
-                                <a href="#" class="btn btn-danger m-1" v-on:click.prevent="borrar(categoria)"
-                                    data-placement="top" data-toggle="tooltip" title="Borrar Categoría."><i
+                                <a href="#" class="btn btn-danger m-1" v-on:click.prevent="borrar(user)"
+                                    data-placement="top" data-toggle="tooltip" title="Borrar Usuario."><i
                                         class="fa fa-trash"></i></a>
                             </center>
                         </td>
@@ -190,8 +224,7 @@
             </div>
         </div>
     </div>
-
-    <form method="post" v-on:submit.prevent="updateCategoria(fillCategoria.id)">
+    <form method="post" v-on:submit.prevent="updateUser(fillUsers.id)">
 
         <div class="modal fade" id="modalEditar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
             tabindex="-1">
@@ -199,7 +232,7 @@
                 <div class="modal-content">
 
                     <div class="modal-header bg-success bg-gradient">
-                        <h1 class="modal-title fs-5 fw-bold" id="exampleModalToggleLabel">Actualizar Categoría</h1>
+                        <h1 class="modal-title fs-5 fw-bold" id="exampleModalToggleLabel">Actualizar Usuario</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
@@ -208,21 +241,57 @@
                         <div class="row">
 
                             <div class="col-12 input-group">
-                                <label for="txtnameE" class="col-3 control-label">Categoría: <b style="color: red">
-                                        *</b></label>
-                                <div class="col-8">
-                                    <input type="text" class="form-control" id="txtnameE" name="txtnameE"
-                                        placeholder="Ingrese la categoría." maxlength="512" autofocus
-                                        v-model="fillCategoria.name">
+                                <label for="cbutipouser" class="col-3 control-label">Seleccione el Tipo de Usuario :
+                                    <b style="color: red"> *</b></label>
+                                <div class="col-9">
+                                    <select name="cbutipouser" id="cbutipouser" class="form-control"
+                                        v-model="fillUsers.tipouser_id">
+                                        <option disabled value="">Seleccione el Tipo de Usuario</option>
+                                        <option v-for="tipouser, key in tipousers" v-bind:value="tipouser.id">
+                                            @{{ tipouser.nombre }}</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="col-12 input-group mt-3">
-                                <label for="txtdescripcionE" class="col-3 control-label">Descripción: <b
-                                        style="color: red"> *</b></label>
+                                <label for="txtnombreE" class="col-3 control-label">Nombres Completos: <b
+                                        style="color: red">
+                                        *</b></label>
                                 <div class="col-8">
-                                    <textarea id="txtdescripcionE" name="txtdescripcionE" class="form-control" placeholder="Ingrese la descripción."
-                                        maxlength="1024" v-model="fillCategoria.descripcion"></textarea>
+                                    <input type="text" class="form-control" id="txtnombreE" name="txtnombreE"
+                                        placeholder="Ingrese los nombres completos." maxlength="512" autofocus
+                                        v-model="fillUsers.nombres">
+                                </div>
+                            </div>
+
+                            <div class="col-12 input-group mt-3">
+                                <label for="txtnameE" class="col-3 control-label">Username: <b style="color: red">
+                                        *</b></label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" id="txtnameE" name="txtnameE"
+                                        placeholder="Ingrese el username." maxlength="64" v-model="fillUsers.name">
+                                </div>
+                            </div>
+
+                            <div class="col-12 input-group mt-3">
+                                <label for="txtemailE" class="col-3 control-label">Correo Electrónico: <b
+                                        style="color: red">
+                                        *</b></label>
+                                <div class="col-8">
+                                    <input type="email" class="form-control" id="txtemailE" name="txtemailE"
+                                        placeholder="Ingrese el correo electrónico." maxlength="64"
+                                        v-model="fillUsers.email">
+                                </div>
+                            </div>
+
+                            <div class="col-12 input-group mt-3">
+                                <label for="txtpasswordE" class="col-3 control-label">Contraseña: <b
+                                        style="color: red">
+                                        *</b></label>
+                                <div class="col-8">
+                                    <input type="password" class="form-control" id="txtpasswordE"
+                                        name="txtpasswordE" placeholder="Ingrese su contraseña." maxlength="255"
+                                        v-model="fillUsers.password">
                                 </div>
                             </div>
 
@@ -231,7 +300,7 @@
                                         *</b></label>
                                 <div class="col-4">
                                     <select class="form-control" id="cbuestado" name="cbuestado"
-                                        v-model="fillCategoria.activo">
+                                        v-model="fillUsers.activo">
                                         <option value="1">Activado</option>
                                         <option value="0">Desactivado</option>
                                     </select>
@@ -246,92 +315,6 @@
                                 class="fa-regular fa-floppy-disk"></i> Guardar</button>
                         <button type="button" class="btn btn-secondary" id="btnCloseE"
                             @click.prevent="cerrarFormE()"><i class="fa fa-sign-out" aria-hidden="true"></i>
-                            Cerrar</button>
-
-                        <div class="sk-circle" v-show="divloaderEdit">
-                            <div class="sk-circle1 sk-child"></div>
-                            <div class="sk-circle2 sk-child"></div>
-                            <div class="sk-circle3 sk-child"></div>
-                            <div class="sk-circle4 sk-child"></div>
-                            <div class="sk-circle5 sk-child"></div>
-                            <div class="sk-circle6 sk-child"></div>
-                            <div class="sk-circle7 sk-child"></div>
-                            <div class="sk-circle8 sk-child"></div>
-                            <div class="sk-circle9 sk-child"></div>
-                            <div class="sk-circle10 sk-child"></div>
-                            <div class="sk-circle11 sk-child"></div>
-                            <div class="sk-circle12 sk-child"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-
-    <form method="post" v-on:submit.prevent="asignarResponsable(fillCategoria.categoria_id)">
-
-        <div class="modal fade" id="modalAsignar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header bg-success bg-gradient">
-                        <h1 class="modal-title fs-5 fw-bold" id="exampleModalToggleLabel">Asignar Responsable</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-
-                            <div class="col-12 input-group">
-                                <label for="cburesponsable" class="col-3 control-label pt-1">Añadir Responsable : <b
-                                        style="color: red"> *</b></label>
-                                <div class="col-7">
-                                    <select name="cburesponsable" id="cburesponsable" class="form-control"
-                                        v-model="newResponsable">
-                                        <option disabled value="">Seleccione el Responsable</option>
-                                        <option v-for="resp, key in cburesponsables" v-bind:value="resp.id">
-                                            @{{ resp.nombres }} @{{ resp.apellidos }}</option>
-                                    </select>
-                                </div>
-                                <div class="col-2">
-                                    <button type="submit" class="btn btn-primary" id="btnSaveE"><i
-                                            class="fa-regular fa-plus"></i> </button>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="card-body table-responsive mt-5">
-                            <table class="table table-hover table-bordered table-condensed table-striped">
-                                <tbody>
-                                    <tr class="table-light">
-                                        <th style="border:1px solid #ddd;width: 5%;">#</th>
-                                        <th style="border:1px solid #ddd;width: 20%;">Responsables</th>
-                                        <th style="border:1px solid #ddd;width: 20%;">Gestión</th>
-                                    </tr>
-                                    <tr v-for="responsable, key in responsables">
-                                        <td style="border:1px solid #ddd;">@{{ key + pagination.from }}</td>
-                                        <td style="border:1px solid #ddd;">@{{ responsable.nombres }}
-                                            @{{ responsable.apellidos }}</td>
-                                        <td style="border:1px solid #ddd;">
-                                            <center>
-                                                <a href="#" class="btn btn-danger m-1"
-                                                    v-on:click.prevent="borrar(categoria)" data-placement="top"
-                                                    data-toggle="tooltip" title="Borrar Categoría."><i
-                                                        class="fa fa-trash"></i></a>
-                                            </center>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-secondary" id="btnCloseE"
-                            @click.prevent="cerrarFormResponsable()"><i class="fa fa-sign-out"
-                                aria-hidden="true"></i>
                             Cerrar</button>
 
                         <div class="sk-circle" v-show="divloaderEdit">
