@@ -354,6 +354,32 @@
                 })
             },
 
+            eliminarResponsable: function(id) {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¿Desea desasignar el responsable Seleccionado? -- Nota: este proceso no se podrá revertir.",
+                    icon: 'error',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, eliminar'
+                }).then((result) => {
+                    if (result.value) {
+                        var url = 'asignarresponsable/' + id;
+                        axios.delete(url).then(response => { //eliminamos
+                            if (response.data.result == '1') {
+                                this.cerrarFormResponsable();
+                                this.getDatos(this.thispage); //listamos
+                                toastr.success(response.data.msj); //mostramos mensaje
+                            } else {
+                                // $('#'+response.data.selector).focus();
+                                toastr.error(response.data.msj);
+                            }
+                        })
+                    }
+                }).catch(swal.noop);
+            },
+
             baja: function(categoria) {
                 Swal.fire({
                     title: '¿Estás seguro?',

@@ -172,6 +172,7 @@ Route::resource('solucion', SolucionController::class);
 Route::get('/verResponsables/{id}', [CategoriaController::class, 'verResponsables'])->name('verResponsables');
 
 Route::put('/asignarresponsable/{categoria_id}', [CategoriaController::class, 'asignarResponsables'])->name('asignarResponsables');
+Route::delete('/asignarresponsable/{id}', [CategoriaController::class, 'eliminarResponsable'])->name('eliminarResponsable');
 
 
 Route::get('/users', [UserController::class, 'index1'])->name('users');

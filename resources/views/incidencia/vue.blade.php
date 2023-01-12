@@ -121,14 +121,11 @@
                     this.oficinas = response.data.oficinas;
                     this.oficinasAPI = response.data.oficinasAPI;
 
-                    if (this.oficinasAPI.data[0].dependency.fullName != null || this.oficinasAPI
-                        .data[0].dependency.fullName != '') {
+                    if (this.oficinasAPI.data.length > 0) {
                         this.nombreOficina = this.oficinasAPI.data[0].dependency.fullName;
                     } else {
-                        this.nombreOficina = 'Oficina default';
+                        this.nombreOficina = '';
                     }
-
-                    console.log('holaaaa', this.abc);
 
                     if (this.incidencias.length == 0 && this.thispage != '1') {
                         var a = parseInt(this.thispage);
@@ -186,7 +183,13 @@
                 data.append('detalle', this.newDetalle);
                 data.append('categoria_id', this.newCategoria);
                 data.append('prioridad', this.newPrioridad);
-                data.append('oficina', this.nombreOficina);
+
+                if (this.nombreOficina == '') {
+                    data.append('oficina', this.newOficina);
+                } else {
+                    data.append('oficina', this.nombreOficina);
+                }
+
                 data.append('activo', this.newEstado);
 
                 const config = {

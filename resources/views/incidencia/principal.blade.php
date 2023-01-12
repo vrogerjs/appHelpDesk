@@ -14,8 +14,8 @@
 
         </div>
         <div class="card-body">
-            <button href="#" class="btn btn-success" id="btnCrear" @click.prevent="nuevo()"><i
-                    class="fa fa-plus" aria-hidden="true"></i> Nueva Incidencia</button>
+            <button href="#" class="btn btn-success" id="btnCrear" @click.prevent="nuevo()"><i class="fa fa-plus"
+                    aria-hidden="true"></i> Nueva Incidencia</button>
         </div>
     </div>
 
@@ -42,14 +42,19 @@
                     </div>
 
                     <div class="col-12 input-group mt-3">
-                        <label for="txtoficina" class="col-3 control-label">Seleccione la Oficina : <b
-                                style="color: red"> *</b></label>
+                        <label for="" class="col-3 control-label">Seleccione la Oficina : <b style="color: red">
+                                *</b></label>
                         <div class="col-9">
-                            <p class="form-control">@{{ nombreOficina }}</p>
+                            <p class="form-control" v-if="nombreOficina != ''">@{{ nombreOficina }}</p>
+
+                            <input type="text" class="form-control" id="txtoficina" name="txtoficina"
+                                placeholder="Ingrese el nombre de la Oficina." maxlength="512" v-model="newOficina"
+                                v-if="nombreOficina == ''">
                         </div>
+
                     </div>
 
-                    <div class="col-12 input-group">
+                    <div class="col-12 input-group mt-3">
                         <label for="txtmotivo" class="col-3 control-label">Título de la Incidencia: <b
                                 style="color: red"> *</b></label>
                         <div class="col-8">

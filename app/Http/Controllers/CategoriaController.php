@@ -73,7 +73,6 @@ class CategoriaController extends Controller
 
     public function asignarResponsables(Request $request, $categoria_id)
     {
-
         $categoria_id = $request->categoria_id;
         $responsable_id = $request->responsable_id;
 
@@ -81,17 +80,7 @@ class CategoriaController extends Controller
         $msj = '';
         $selector = '';
 
-        // $resp = DB::select("SELECT count(*) as cont FROM categorias_responsables where categoria_id=" . $categoria_id . " and responsable_id=" . $responsable_id . ";");
-
         $resp = CategoriaResponsable::where('categoria_id', $categoria_id)->where('responsable_id', $responsable_id)->count();
-
-        // $dato->imagencomunicado = $imagencomunicado;
-
-
-        // $resp = CategoriaResponsable::whereColumn([
-        //     ['categoria_id', $categoria_id],
-        //     ['responsable_id', $responsable_id]
-        // ])->count();
 
         $input1  = array('responsable_id' => $responsable_id);
         $reglas1 = array('responsable_id' => 'required');
@@ -116,9 +105,20 @@ class CategoriaController extends Controller
 
             $msj = 'La asignación se realizo con éxito.';
         }
-
-
         return response()->json(["result" => $result, 'msj' => $msj, 'selector' => $selector]);
+    }
+
+    public function eliminarResponsable($id)
+    {
+        $result = '1';
+        $msj = '1';
+        $selector = '';
+
+        CategoriaResponsable::where('id', $id)->delete();
+
+        $msj = 'Se realizo la desasignación del responsable exitosamente.';
+
+        return response()->json(["result" => $result, 'msj' => $msj]);
     }
 
     /**

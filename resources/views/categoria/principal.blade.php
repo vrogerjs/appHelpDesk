@@ -295,7 +295,7 @@
                                 </div>
                                 <div class="col-2">
                                     <button type="submit" class="btn btn-primary" id="btnSaveE"><i
-                                            class="fa-regular fa-plus"></i> </button>
+                                            class="fa fa-plus"></i> </button>
                                 </div>
                             </div>
 
@@ -316,8 +316,8 @@
                                         <td style="border:1px solid #ddd;">
                                             <center>
                                                 <a href="#" class="btn btn-danger m-1"
-                                                    v-on:click.prevent="borrar(categoria)" data-placement="top"
-                                                    data-toggle="tooltip" title="Borrar Categoría."><i
+                                                    v-on:click.prevent="eliminarResponsable(responsable.id)" data-placement="top"
+                                                    data-toggle="tooltip" title="Desasignar Responsable."><i
                                                         class="fa fa-trash"></i></a>
                                             </center>
                                         </td>
