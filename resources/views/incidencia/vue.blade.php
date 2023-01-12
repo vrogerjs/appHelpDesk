@@ -121,7 +121,8 @@
                     this.oficinas = response.data.oficinas;
                     this.oficinasAPI = response.data.oficinasAPI;
 
-                    if (this.oficinasAPI.data[0].dependency.fullName->isEmpty()) {
+                    if (this.oficinasAPI.data[0].dependency.fullName != null || this.oficinasAPI
+                        .data[0].dependency.fullName != '') {
                         this.nombreOficina = this.oficinasAPI.data[0].dependency.fullName;
                     } else {
                         this.nombreOficina = 'Oficina default';
