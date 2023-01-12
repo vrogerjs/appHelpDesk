@@ -4,6 +4,8 @@
 
 @include('layouts.partials.htmlheader')
 
+{{-- <body class="hold-transition sidebar-mini"> --}}
+
 <body class="hold-transition sidebar-mini">
 
     <div id="app" v-cloak>
@@ -13,7 +15,8 @@
 
             @include('layouts.partials.sidebar')
 
-            <div class="content-wrapper">
+            <div class="content-wrapper"
+                style="background-image: url({{ asset('img/logobn.png') }});background-repeat: repeat;">
 
                 @include('layouts.partials.contentheader')
 
