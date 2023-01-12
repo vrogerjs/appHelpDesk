@@ -3,20 +3,23 @@
         <img src="{{ asset('img/logo.png') }}" alt="Gobierno Regional de Ancash" class="brand-image img-circle elevation-3"
             style="float:none;max-height: 100px;">
         <br>
-        <span class="brand-text font-weight-light" style="text-decoration:none!important;">Gobierno Regional <br>de
-            Ancash</span>
+        <p class="d-block fw-bold" style="text-decoration:none!important;">Gobierno Regional <br>de
+            Ancash</p>
     </a>
     <div class="sidebar">
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="mt-3 mb-3 text-center">
             <div class="image">
                 <img src="{{ asset('img/user.png') }}" class="img-circle elevation-2" alt="User Image"
                     style="width: 4rem;">
             </div>
-            <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->nombres }}</a>
+            <div class="info mt-1">
+                <p class="d-block text-white">{{ Auth::user()->nombres }}</p>
             </div>
         </div>
-        <div class="form-inline">
+
+        <hr style="color: white">
+
+        {{-- <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
                 <input class="form-control form-control-sidebar" type="search" placeholder="Search"
                     aria-label="Search">
@@ -26,7 +29,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
