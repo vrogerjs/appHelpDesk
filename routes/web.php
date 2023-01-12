@@ -78,7 +78,7 @@ Route::get('/', function (Request $request) {
     if (!isset($data->uid)) {
         $code = $request->query('code');
         $client_id_oauth = env('CLIENT_ID_OAUTH');
-        $client_id_oauth = 'DDc3q7V6rIKj4rdQlrg8yT2R';
+        // $client_id_oauth = 'DDc3q7V6rIKj4rdQlrg8yT2R';
         // return $client_id_oauth;
         if (!isset($code)) {
             return Redirect::to('http://web.regionancash.gob.pe/api/oauth/authorize?response_type=code&client_id=' . $client_id_oauth);
